@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Gemini Chat — AI Assistant</title>
-    <!-- PWA метатеги -->
+    
+    <!-- ===== ДОБАВЛЕНО PWA (только это новое) ===== -->
     <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Gemini Chat">
     <meta name="theme-color" content="#1a1a1a">
+    <!-- ========================================== -->
+    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -22,7 +26,6 @@
 
         /* ==================== ПЕРЕМЕННЫЕ ДЛЯ ТЕМ ==================== */
         :root {
-            /* Тёмная тема (по умолчанию) */
             --bg-primary: #1a1a1a;
             --bg-secondary: #1e1e1e;
             --bg-tertiary: #2a2a2a;
@@ -48,7 +51,6 @@
         }
 
         body.light {
-            /* Светлая тема */
             --bg-primary: #ffffff;
             --bg-secondary: #f8f9fa;
             --bg-tertiary: #f0f2f5;
@@ -80,7 +82,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -101,7 +102,6 @@
             width: 100%;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 280px;
             background: var(--bg-secondary);
@@ -131,7 +131,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Кнопка переключения темы */
         .theme-toggle {
             margin-top: 16px;
             width: 100%;
@@ -244,7 +243,6 @@
             margin: 4px 0;
         }
 
-        /* Main chat area */
         .main {
             flex: 1;
             display: flex;
@@ -270,7 +268,6 @@
             padding: 20px 24px;
         }
 
-        /* Message bubbles */
         .message {
             display: flex;
             gap: 16px;
@@ -278,7 +275,6 @@
             animation: fadeIn 0.3s;
         }
 
-        /* На ПК — текст крупнее */
         @media (min-width: 769px) {
             .message-content {
                 font-size: 16px;
@@ -294,7 +290,6 @@
             }
         }
 
-        /* На телефоне — как было */
         @media (max-width: 768px) {
             .message-content {
                 font-size: 14px;
@@ -367,7 +362,6 @@
             font-size: 0.9em;
         }
 
-        /* Input area */
         .input-area {
             padding: 16px 24px 24px;
             background: var(--bg-primary);
@@ -545,12 +539,10 @@
     <input type="file" id="fileInput" style="display: none;" multiple>
 
     <script>
-        // ==================== КОНФИГУРАЦИЯ ====================
         const API_KEY = "sk-ClU_Wz5qHqCMpSVbOkiV5JTMDoKcw4sg";
         const API_URL = "https://routerai.ru/api/v1/chat/completions";
         const MODEL = "google/gemini-2.5-flash-lite";
 
-        // ==================== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ ====================
         function initTheme() {
             const savedTheme = localStorage.getItem('gemini_theme');
             if (savedTheme === 'light') {
@@ -573,7 +565,6 @@
             }
         }
 
-        // ==================== БАЗА ДАННЫХ ПОЛЬЗОВАТЕЛЕЙ ====================
         let currentUser = null;
         
         function initUser() {
@@ -619,7 +610,6 @@
             updateStats();
         }
         
-        // ==================== ХРАНИЛИЩЕ ЧАТОВ ====================
         let chats = [];
         let currentChatId = null;
         let pendingFiles = [];
@@ -754,7 +744,6 @@
             container.scrollTop = container.scrollHeight;
         }
         
-        // ==================== API ВЫЗОВ ====================
         async function callGemini(userMessage, attachments = []) {
             const chat = chats.find(c => c.id === currentChatId);
             if (!chat) return;
@@ -840,7 +829,6 @@
             updateStats();
         }
         
-        // ==================== РАБОТА С ФАЙЛАМИ ====================
         function handleFileSelect(event) {
             const files = Array.from(event.target.files);
             pendingFiles = [];
@@ -875,7 +863,6 @@
             await callGemini(message, filesCopy);
         }
         
-        // ==================== ИНИЦИАЛИЗАЦИЯ ====================
         function setupEventListeners() {
             document.getElementById('newChatBtn').addEventListener('click', () => createNewChat());
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
@@ -899,7 +886,6 @@
             return div.innerHTML;
         }
         
-        // Старт
         initTheme();
         initUser();
         loadChats();
