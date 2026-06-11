@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Gemini Chat</title>
     
-    <!-- ИКОНКИ -->
     <link rel="icon" type="image/png" href="https://geminirussia.github.io/chat/icon-192.png">
     <link rel="apple-touch-icon" href="https://geminirussia.github.io/chat/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,130 +19,124 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --bg-primary: #0f0f13;
-            --bg-secondary: #1a1a1e;
-            --bg-tertiary: #25252a;
+            --bg: #0f0f13;
+            --bg-sidebar: #1a1a1e;
+            --bg-card: #25252a;
             --bg-hover: #2d2d32;
-            --border-color: #2a2a2e;
-            --border-light: #3a3a40;
-            --text-primary: #e8e8e8;
-            --text-secondary: #b0b0b0;
-            --text-muted: #6a6a6e;
+            --border: #2a2a2e;
+            --text: #e8e8e8;
+            --text-secondary: #a0a0a0;
             --accent: #6366f1;
             --accent-hover: #8183f4;
-            --accent-secondary: #8b5cf6;
-            --error: #ff6b6b;
-            --avatar-user: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --avatar-assistant: #2d2d32;
-            --message-bg-user: #2d2d32;
-            --message-bg-assistant: #1e1e24;
+            --user-msg: #2d2d32;
+            --ai-msg: #1e1e24;
             --input-bg: #1e1e24;
-            --scrollbar-track: #1a1a1e;
-            --scrollbar-thumb: #3a3a40;
         }
 
         body.light {
-            --bg-primary: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f0f2f5;
-            --bg-hover: #e9ecef;
-            --border-color: #e0e0e0;
-            --border-light: #e9ecef;
-            --text-primary: #1a1a1a;
+            --bg: #f5f5f7;
+            --bg-sidebar: #ffffff;
+            --bg-card: #e8e8ec;
+            --bg-hover: #e0e0e4;
+            --border: #e0e0e0;
+            --text: #1a1a1a;
             --text-secondary: #4a4a4a;
-            --text-muted: #6c757d;
             --accent: #6366f1;
-            --avatar-user: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --avatar-assistant: #e9ecef;
-            --message-bg-user: #e9ecef;
-            --message-bg-assistant: #ffffff;
+            --user-msg: #e8e8ec;
+            --ai-msg: #ffffff;
             --input-bg: #ffffff;
-            --scrollbar-track: #e9ecef;
-            --scrollbar-thumb: #cbd5e1;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: var(--bg-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
             height: 100vh;
             overflow: hidden;
-            color: var(--text-primary);
-            transition: all 0.2s;
+            color: var(--text);
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+        /* ЧИСТЫЙ СКРОЛЛ */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3a3a40; border-radius: 10px; }
 
         .app { display: flex; height: 100vh; width: 100%; }
 
-        /* САЙДБАР */
+        /* САЙДБАР — ПРОСТОЙ И ПОНЯТНЫЙ */
         .sidebar {
-            width: 300px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
+            width: 280px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            transition: transform 0.25s ease;
-            z-index: 1000;
         }
 
-        .sidebar-header { padding: 20px 20px; border-bottom: 1px solid var(--border-color); }
-        .sidebar-header h2 { font-size: 24px; font-weight: 600; display: flex; align-items: center; gap: 10px; color: var(--text-primary); }
-        .sidebar-header h2 span { background: var(--avatar-user); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); }
+        .sidebar-header h2 { font-size: 22px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .sidebar-header span { color: var(--accent); }
 
         .theme-toggle, .new-chat-btn {
             margin-top: 12px;
             width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-light);
-            border-radius: 28px;
-            color: var(--text-primary);
-            font-size: 14px;
-            font-weight: 500;
+            padding: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            font-size: 13px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
             transition: all 0.2s;
         }
-        .theme-toggle:hover, .new-chat-btn:hover { background: var(--accent); border-color: var(--accent); color: white; }
+        .theme-toggle:hover, .new-chat-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .chats-list { flex: 1; overflow-y: auto; padding: 16px; }
+        .chats-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
         .chat-item {
-            padding: 12px 16px;
-            border-radius: 28px;
-            margin-bottom: 6px;
+            padding: 10px 12px;
+            border-radius: 20px;
+            margin-bottom: 4px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
             color: var(--text-secondary);
-            transition: all 0.2s;
         }
-        .chat-item:hover { background: var(--bg-hover); color: var(--text-primary); }
-        .chat-item.active { background: var(--bg-tertiary); color: var(--text-primary); font-weight: 500; }
+        .chat-item:hover { background: var(--bg-hover); color: var(--text); }
+        .chat-item.active { background: var(--bg-card); color: var(--text); font-weight: 500; }
         .chat-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .chat-delete {
             background: none;
             border: none;
-            color: var(--text-muted);
+            color: #6a6a6e;
             cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 24px;
+            padding: 4px 8px;
+            border-radius: 20px;
             opacity: 0;
-            font-size: 16px;
         }
         .chat-item:hover .chat-delete { opacity: 1; }
-        .chat-delete:hover { background: var(--bg-tertiary); color: var(--error); }
+        .chat-delete:hover { color: #ff6b6b; background: #2a2a2e; }
 
-        /* ОСНОВНАЯ ОБЛАСТЬ */
-        .main { flex: 1; display: flex; flex-direction: column; background: var(--bg-primary); }
-        .chat-header { padding: 16px 24px; border-bottom: 1px solid var(--border-color); text-align: center; }
-        .chat-header h3 { font-size: 18px; font-weight: 500; color: var(--text-muted); }
+        /* ОСНОВНОЕ ОКНО */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+        }
+        .chat-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .chat-header h3 {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
 
         .messages-container {
             flex: 1;
@@ -151,106 +144,72 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
 
         .message {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             max-width: 80%;
-            animation: fadeIn 0.2s;
         }
         .message.user { align-self: flex-end; flex-direction: row-reverse; }
         .message.assistant { align-self: flex-start; }
 
         .message-avatar {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             flex-shrink: 0;
+            background: var(--bg-card);
         }
-        .message.user .message-avatar { background: var(--avatar-user); }
-        .message.assistant .message-avatar { background: var(--avatar-assistant); }
+        .message.user .message-avatar { background: var(--accent); }
+        .message.assistant .message-avatar { background: var(--bg-card); }
 
         .message-content {
-            background: var(--message-bg-assistant);
-            padding: 12px 18px;
-            border-radius: 22px;
-            line-height: 1.5;
-            word-break: break-word;
-            color: var(--text-primary);
+            background: var(--ai-msg);
+            padding: 10px 16px;
+            border-radius: 20px;
+            line-height: 1.45;
+            font-size: 15px;
         }
         .message.user .message-content {
-            background: var(--message-bg-user);
-            border: 1px solid var(--border-light);
+            background: var(--user-msg);
+            border: 1px solid var(--border);
         }
-        .message-content p { margin-bottom: 6px; }
-        .message-content p:last-child { margin-bottom: 0; }
-        .message-content pre { background: var(--bg-primary); padding: 12px; border-radius: 14px; overflow-x: auto; margin: 8px 0; }
+        .message-content pre {
+            background: var(--bg);
+            padding: 10px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 6px 0;
+            font-size: 13px;
+        }
 
-        /* БОЛЬШОЙ ТЕКСТ НА ПК */
+        /* НА ПК ТЕКСТ КРУПНЕЕ */
         @media (min-width: 769px) {
-            .message-content { font-size: 17px; }
-            .message-content p { font-size: 17px; }
-            .sidebar-header h2 { font-size: 24px; }
+            .message-content { font-size: 16px; }
         }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 768px) {
-            .message-content { font-size: 15px; }
-            .sidebar {
-                position: fixed;
-                left: -300px;
-                top: 0;
-                height: 100%;
-                z-index: 1050;
-                box-shadow: none;
-            }
-            .sidebar.open {
-                left: 0;
-                box-shadow: 4px 0 20px rgba(0,0,0,0.3);
-            }
-            .menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: fixed;
-                top: 14px;
-                left: 14px;
-                z-index: 1060;
-                background: var(--bg-tertiary);
-                border: 1px solid var(--border-light);
-                color: var(--text-primary);
-                font-size: 20px;
-                cursor: pointer;
-                padding: 10px;
-                border-radius: 50%;
-                width: 44px;
-                height: 44px;
-            }
-            .chat-header {
-                padding-left: 70px;
-                padding-right: 16px;
-            }
+            .message-content { font-size: 14px; }
+            .sidebar { width: 260px; }
             .message { max-width: 90%; }
             .messages-container { padding: 16px; }
-            .input-area { padding: 16px 20px 20px; }
         }
 
-        .input-area { padding: 20px 24px 24px; background: var(--bg-primary); }
+        .input-area { padding: 16px 24px 24px; background: var(--bg); }
         .input-wrapper {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: flex-end;
             background: var(--input-bg);
-            border-radius: 32px;
-            padding: 8px 16px;
-            border: 1px solid var(--border-light);
-            transition: border 0.2s;
+            border-radius: 28px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
         }
         .input-wrapper:focus-within { border-color: var(--accent); }
         .input-wrapper textarea {
@@ -258,81 +217,99 @@
             background: transparent;
             border: none;
             padding: 10px 0;
-            color: var(--text-primary);
-            font-size: 16px;
+            color: var(--text);
+            font-size: 15px;
             resize: none;
             font-family: inherit;
-            max-height: 130px;
+            max-height: 120px;
         }
         .input-wrapper textarea:focus { outline: none; }
         .file-btn, .send-btn {
             background: none;
             border: none;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             cursor: pointer;
             padding: 8px;
             border-radius: 50%;
             font-size: 20px;
-            transition: all 0.2s;
         }
-        .file-btn:hover, .send-btn:hover { background: var(--bg-tertiary); color: var(--accent); }
+        .file-btn:hover, .send-btn:hover { background: var(--bg-card); color: var(--accent); }
 
-        .attachment-preview { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
-        .attachment-badge { background: var(--bg-tertiary); padding: 5px 12px; border-radius: 22px; font-size: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
-        .remove-attachment { cursor: pointer; color: var(--error); font-size: 13px; }
+        .attachment-preview { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .attachment-badge {
+            background: var(--bg-card);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .remove-attachment { cursor: pointer; color: #ff6b6b; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .message { animation: fadeIn 0.2s; }
 
         .model-badge {
             position: fixed;
-            bottom: 16px;
-            right: 20px;
-            font-size: 11px;
-            color: var(--text-muted);
-            background: var(--bg-secondary);
-            padding: 5px 12px;
+            bottom: 12px;
+            right: 16px;
+            font-size: 10px;
+            color: #6a6a6e;
+            background: var(--bg-card);
+            padding: 4px 12px;
             border-radius: 20px;
             z-index: 100;
-            opacity: 0.6;
         }
-        @media (max-width: 768px) { .model-badge { font-size: 9px; bottom: 12px; right: 12px; } }
 
-        /* Оверлей для мобильного меню */
-        .sidebar-overlay {
+        /* МОБИЛЬНОЕ МЕНЮ — ТОЛЬКО КНОПКА СЛЕВА */
+        .menu-toggle {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1040;
+            top: 16px;
+            left: 16px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 50%;
         }
-        .sidebar-overlay.show { display: block; }
         @media (max-width: 768px) {
-            .sidebar-overlay.show { display: block; }
+            .menu-toggle { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; }
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                height: 100%;
+                z-index: 1001;
+                transition: left 0.2s;
+            }
+            .sidebar.open { left: 0; box-shadow: 4px 0 20px rgba(0,0,0,0.4); }
+            .chat-header { padding-left: 70px; }
         }
     </style>
 </head>
 <body>
     <button class="menu-toggle" id="menuToggle">☰</button>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="app">
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h2>🤖 <span>Gemini Chat</span></h2>
-                <button class="theme-toggle" id="themeToggle">🌓 Светлая тема</button>
+                <h2>🤖 <span>Gemini</span></h2>
+                <button class="theme-toggle" id="themeToggle">Светлая тема</button>
                 <button class="new-chat-btn" id="newChatBtn">+ Новый чат</button>
             </div>
             <div class="chats-list" id="chatsList"></div>
         </div>
         <div class="main">
             <div class="chat-header">
-                <h3 id="chatTitle">Выберите чат</h3>
+                <h3 id="chatTitle">Новый чат</h3>
             </div>
             <div class="messages-container" id="messagesContainer">
-                <div style="text-align: center; color: var(--text-muted); margin-top: 40px; font-size: 16px;">✨ Новый чат ✨</div>
+                <div style="text-align: center; color: var(--text-secondary); margin-top: 50px;">✨ Напишите сообщение ✨</div>
             </div>
             <div class="input-area">
                 <div class="input-wrapper">
@@ -344,7 +321,7 @@
             </div>
         </div>
     </div>
-    <div class="model-badge">🧠 Gemini 2.5 Flash</div>
+    <div class="model-badge">Gemini 2.5 Flash</div>
     <input type="file" id="fileInput" style="display: none;" multiple>
 
     <script>
@@ -373,25 +350,22 @@
             let users = JSON.parse(localStorage.getItem('gemini_users') || '{}');
             if (!userId || !users[userId]) {
                 userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-                users[userId] = { id: userId, name: 'User_' + userId.substr(-5), totalRequests: 0 };
+                users[userId] = { id: userId, totalRequests: 0 };
                 localStorage.setItem('gemini_user_id', userId);
                 localStorage.setItem('gemini_users', JSON.stringify(users));
             }
             currentUser = users[userId];
         }
-        function updateUserStats() {
+        function incrementTotal() {
             if (!currentUser) return;
+            currentUser.totalRequests++;
             const users = JSON.parse(localStorage.getItem('gemini_users') || '{}');
             users[currentUser.id] = currentUser;
             localStorage.setItem('gemini_users', JSON.stringify(users));
         }
-        function incrementTotal() {
-            if (!currentUser) return;
-            currentUser.totalRequests = (currentUser.totalRequests || 0) + 1;
-            updateUserStats();
-        }
 
         let chats = [], currentChatId = null, pendingFiles = [];
+        
         function loadChats() {
             if (!currentUser) return;
             const saved = localStorage.getItem(`chats_${currentUser.id}`);
@@ -399,9 +373,7 @@
             if (!chats.length) createChat();
             else { currentChatId = chats[0].id; renderChats(); loadChat(); }
         }
-        function saveChats() {
-            localStorage.setItem(`chats_${currentUser.id}`, JSON.stringify(chats));
-        }
+        function saveChats() { localStorage.setItem(`chats_${currentUser.id}`, JSON.stringify(chats)); }
         function createChat() {
             const newChat = { id: Date.now().toString(), title: `Чат ${chats.length + 1}`, messages: [] };
             chats.unshift(newChat);
@@ -409,6 +381,7 @@
             saveChats();
             renderChats();
             loadChat();
+            if (window.innerWidth <= 768) closeSidebar();
         }
         function deleteChat(id) {
             if (chats.length === 1) { alert("Нельзя удалить последний чат"); return; }
@@ -428,7 +401,7 @@
                     currentChatId = chat.id;
                     renderChats();
                     loadChat();
-                    closeSidebar();
+                    if (window.innerWidth <= 768) closeSidebar();
                 };
                 div.querySelector('.chat-delete').onclick = (e) => { e.stopPropagation(); deleteChat(chat.id); };
                 container.appendChild(div);
@@ -440,7 +413,7 @@
             document.getElementById('chatTitle').innerHTML = `💬 ${escapeHtml(chat.title)}`;
             const container = document.getElementById('messagesContainer');
             container.innerHTML = '';
-            if (!chat.messages.length) container.innerHTML = '<div style="text-align:center;color:var(--text-muted);margin-top:40px;font-size:16px;">✨ Напишите сообщение ✨</div>';
+            if (!chat.messages.length) container.innerHTML = '<div style="text-align:center;color:var(--text-secondary);margin-top:50px;">✨ Напишите сообщение ✨</div>';
             else chat.messages.forEach(m => addMessage(m.role, m.content));
             scrollBottom();
         }
@@ -459,15 +432,8 @@
         function scrollBottom() { document.getElementById('messagesContainer').scrollTop = document.getElementById('messagesContainer').scrollHeight; }
         function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
 
-        // Управление мобильным меню
-        function openSidebar() {
-            document.getElementById('sidebar').classList.add('open');
-            document.getElementById('sidebarOverlay').classList.add('show');
-        }
-        function closeSidebar() {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebarOverlay').classList.remove('show');
-        }
+        function openSidebar() { document.getElementById('sidebar').classList.add('open'); }
+        function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); }
 
         async function callGemini(msg, files = []) {
             const chat = chats.find(c => c.id === currentChatId);
@@ -481,7 +447,7 @@
 
             const loading = document.createElement('div');
             loading.className = 'message assistant';
-            loading.innerHTML = `<div class="message-avatar">🤖</div><div class="message-content"><div style="display:flex;gap:8px;"><div style="width:16px;height:16px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div> Думаю...</div></div>`;
+            loading.innerHTML = `<div class="message-avatar">🤖</div><div class="message-content"><div style="display:flex;gap:6px;align-items:center;"><div style="width:14px;height:14px;border:2px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div> Думаю...</div></div>`;
             document.getElementById('messagesContainer').appendChild(loading);
             scrollBottom();
 
@@ -546,14 +512,13 @@
             await callGemini(msg, files);
         }
 
-        document.getElementById('newChatBtn').onclick = () => { createChat(); closeSidebar(); };
+        document.getElementById('newChatBtn').onclick = createChat;
         document.getElementById('themeToggle').onclick = toggleTheme;
         document.getElementById('sendBtn').onclick = send;
         document.getElementById('fileBtn').onclick = () => document.getElementById('fileInput').click();
         document.getElementById('fileInput').onchange = handleFiles;
         document.getElementById('messageInput').onkeydown = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } };
         document.getElementById('menuToggle').onclick = openSidebar;
-        document.getElementById('sidebarOverlay').onclick = closeSidebar;
 
         initTheme();
         initUser();
